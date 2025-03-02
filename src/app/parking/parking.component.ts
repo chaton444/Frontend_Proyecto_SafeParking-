@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule para ngMode
 @Component({
   selector: 'app-parking',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Asegúrate de incluir FormsModule aquí
+  imports: [CommonModule, FormsModule], 
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
