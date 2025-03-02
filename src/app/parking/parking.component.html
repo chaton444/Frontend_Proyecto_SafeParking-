@@ -1,0 +1,28 @@
+<div class="header">
+    <h1>SafeParking </h1>
+</div>
+  
+<div class="container">
+    <h2>Lista de Autos Infraccionados</h2>
+    <div class="car-gallery">
+      <div class="car-card" *ngFor="let car of cars">
+        <img [src]="car.image" [alt]="car.plate" />
+        <div class="car-details">
+          <div *ngIf="editingPlate === car.plate; else displayMode">
+            <input type="text" [(ngModel)]="tempPlate" placeholder="Nueva placa" />
+            <div class="buttons">
+              <button (click)="updatePlate(car)">Guardar</button>
+              <button (click)="cancelEdit()">Cancelar</button>
+            </div>
+          </div>
+          <ng-template #displayMode>
+            <p>{{ car.plate }}</p>
+            <div class="buttons">
+              <button (click)="downloadImage(car.image)">Descargar</button>
+              <button (click)="startEditingPlate(car)">Modificar</button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+</div>
