@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CarService } from '../servicios/HttpClient.car.service';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule para ngModel
+import { HttpClientModule } from '@angular/common/http'; // Asegúrate de importar HttpClientModule
 
 @Component({
   selector: 'app-parking',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule, HttpClientModule], // Agrega HttpClientModule aquí
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
@@ -53,15 +55,12 @@ export class ParkingComponent {
     }
   ];
 
+
+  constructor(private carService: CarService) { }
+
   editingPlate: string | null = null;
   tempPlate: string | null = null; // Variable temporal para la placa
 
-  downloadImage(imageUrl: string): void {
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'car-image.jpg';
-    link.click();
-  }
 
   startEditingPlate(car: any): void {
     this.editingPlate = car.plate; // Guarda la placa que se está editando
@@ -78,5 +77,25 @@ export class ParkingComponent {
   cancelEdit(): void {
     this.tempPlate = null; // Restablece la placa temporal
     this.editingPlate = null; // Cancela la edición
+  }
+
+
+  // Método para subir una imagen
+  uploadImage(event: any): void {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.carService.uploadImage(formData).subscribe(response => {
+      console.log('Imagen subida:', response);
+    });
+  }
+
+  // Método para descargar la imagen
+  downloadImage(imageUrl: string): void {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'car-image.jpg';
+    link.click();
   }
 }
