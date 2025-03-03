@@ -6,7 +6,8 @@
   <h2>Lista de Autos Infraccionados</h2>
 
   <!-- Formulario para cargar imagen -->
-  <input type="file" (change)="uploadImage($event)" />
+  <input type="file" (change)="uploadImage($event, cars)">
+
 
   <div class="car-gallery">
     <div class="car-card" *ngFor="let car of cars">

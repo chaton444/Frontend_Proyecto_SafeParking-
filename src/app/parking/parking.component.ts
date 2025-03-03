@@ -81,15 +81,21 @@ export class ParkingComponent {
 
 
   // Método para subir una imagen
-  uploadImage(event: any): void {
+  uploadImage(event: any, car: any): void {
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
-
+  
     this.carService.uploadImage(formData).subscribe(response => {
       console.log('Imagen subida:', response);
+      
+      // Si la respuesta tiene la nueva URL de la imagen, actualiza el objeto en el array
+      if (response && response.imageUrl) {
+        car.image = response.imageUrl;
+      }
     });
   }
+  
 
   // Método para descargar la imagen
   downloadImage(imageUrl: string): void {
