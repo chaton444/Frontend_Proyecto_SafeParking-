@@ -1,0 +1,83 @@
+/* Fondo completo */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4a90e2, #9013fe);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Caja de login */
+.login-box {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Título */
+.login-box h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Inputs */
+.login-box input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.login-box input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Botón */
+.login-box button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-box button:hover {
+  background-color: #357abd;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivo para móvil */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem;
+  }
+
+  .login-box h2 {
+    font-size: 1.5rem;
+  }
+}

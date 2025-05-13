@@ -3,33 +3,50 @@ import { CommonModule } from '@angular/common';
 import { CarService } from '../servicios/HttpClient.car.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule,Router } from '@angular/router';
 
 @Component({
   selector: 'app-parking',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule,RouterModule],
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
 export class ParkingComponent {
   cars: any[] = [];
+  isAdmin = false;
+searchPlate: string = '';
+filteredCars: any[] = [];
 
-  constructor(private carService: CarService) { }
 
-  ngOnInit(): void {
-    this.loadCars();
+constructor(private carService: CarService, private router: Router) {}
+
+
+
+ngOnInit(): void {
+  const role = localStorage.getItem('role');
+  if (role !== 'admin') {
+    this.router.navigate(['/login']); // ✅ redirección limpia sin recargar
+    return;
   }
-
-  loadCars(): void {
-    this.carService.getCars().subscribe(
-      (data) => {
-        this.cars = data;
-      },
-      (error) => {
-        console.error('ERROR al cargar las imagenes', error);
-      }
-    );
-  }
+  this.isAdmin = true;
+  this.loadCars();
+}
+logout(): void {
+  localStorage.removeItem('role');
+  this.router.navigate(['/login']); // ✅ igual aquí
+}
+loadCars(): void {
+  this.carService.getCars().subscribe(
+    (data) => {
+      this.cars = data;
+      this.filteredCars = data; // mostrar todos al inicio
+    },
+    (error) => {
+      console.error('ERROR al cargar las imagenes', error);
+    }
+  );
+}
 
   editingPlate: number | null = null;
   tempPlate: string | null = null; // Variable temporal para el nombre de la imagen
@@ -45,6 +62,7 @@ startEditingPlate(car: any): void {
   this.editingPlate = car.id;
   this.tempPlate = car.plate; // Ya no uses getImageName(car.filename)
 }
+
 
   // Actualiza el nombre de la imagen
   updatePlate(car: any): void {
@@ -97,6 +115,7 @@ startEditingPlate(car: any): void {
     );
 
   }
+  
 
   // Método para actualizar la placa
  updateCarPlate(car: any): void {
@@ -114,6 +133,27 @@ startEditingPlate(car: any): void {
   }
 }
 
+filterCars(): void {
+  const search = this.searchPlate.trim().toLowerCase();
+
+  if (!search) {
+    this.filteredCars = this.cars; // Sin filtro, mostrar todo
+    return;
+  }
+
+  // Primero los que INICIAN con la búsqueda
+  const startsWith = this.cars.filter(car =>
+    car.plate.toLowerCase().startsWith(search)
+  );
+
+  // Luego los que solo CONTIENEN pero no inician
+  const contains = this.cars.filter(car =>
+    car.plate.toLowerCase().includes(search) &&
+    !car.plate.toLowerCase().startsWith(search)
+  );
+
+  this.filteredCars = [...startsWith, ...contains];
+}
 
 
 }

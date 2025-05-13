@@ -7,9 +7,29 @@
 
   <!-- Formulario para cargar imagen    <input type="file" (change)="uploadImage($event, cars)">-->
 
+<!-- Buscador de placas -->
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchPlate"
+    (input)="filterCars()"
+    placeholder="Buscar por placa..."
+    class="search-input"
+  />
+</div>
+
+
+
+
+
+  
+<div style="text-align: center;">
+  <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+</div>
+
 
   <div class="car-gallery">
-    <div class="car-card" *ngFor="let car of cars">
+    <div class="car-card" *ngFor="let car of filteredCars">
       <!-- Imagen -->
       <img [src]="car.image" [alt]="car.plate" />
       
