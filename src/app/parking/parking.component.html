@@ -5,26 +5,31 @@
 <div class="container">
   <h2>Lista de Autos Infraccionados</h2>
 
-  <!-- Formulario para cargar imagen -->
-  <input type="file" (change)="uploadImage($event, cars)">
+  <!-- Formulario para cargar imagen    <input type="file" (change)="uploadImage($event, cars)">-->
 
 
   <div class="car-gallery">
     <div class="car-card" *ngFor="let car of cars">
+      <!-- Imagen -->
       <img [src]="car.image" [alt]="car.plate" />
+      
       <div class="car-details">
-        <div *ngIf="editingPlate === car.plate; else displayMode">
-          <input type="text" [(ngModel)]="tempPlate" placeholder="Nueva placa" />
+        <!-- Formulario para editar el nombre del archivo -->
+        <div *ngIf="editingPlate === car.id; else displayMode">
+          <input type="text" [(ngModel)]="tempPlate" placeholder="Nuevo nombre de imagen" />
           <div class="buttons">
-            <button (click)="updatePlate(car)">Guardar</button>
+            <button (click)="updateCarPlate(car)">Guardar</button>
             <button (click)="cancelEdit()">Cancelar</button>
           </div>
         </div>
+        
+        <!-- Modo de visualización -->
         <ng-template #displayMode>
-          <p>{{ car.plate }}</p>
+          <p>{{ car.plate}}</p>
           <div class="buttons">
             <button (click)="downloadImage(car.image)">Descargar</button>
             <button (click)="startEditingPlate(car)">Modificar</button>
+            <button (click)="deleteImage(car)">Eliminar</button>
           </div>
         </ng-template>
       </div>
