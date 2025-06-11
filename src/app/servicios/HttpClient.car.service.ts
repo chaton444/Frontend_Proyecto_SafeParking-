@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CarService {
-  private apiUrl = 'http://18.116.90.219:3000/images'; // Asegúrate de que esta sea la URL correcta
+  private apiUrl = 'http://3.85.237.4:3000/images'; // Asegúrate de que esta sea la URL correcta
 
   constructor(private http: HttpClient) {}
 

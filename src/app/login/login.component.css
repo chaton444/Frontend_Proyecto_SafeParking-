@@ -1,44 +1,80 @@
-/* Fondo completo */
+/* Fondo general */
 .login-container {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #4a90e2, #9013fe);
+  background: linear-gradient(135deg, #539df1, #4e15d3);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 }
 
-/* Caja de login */
-.login-box {
-  background-color: white;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;
+/* Branding superior */
+.branding {
   text-align: center;
+  margin-bottom: 2rem;
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Título */
+.branding h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
+}
+
+.branding p {
+  font-size: 1rem;
+  color: #e0e0e0;
+  letter-spacing: 1px;
+}
+
+/* Caja de login moderna */
+.login-box {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: fadeIn 0.8s ease-in-out;
+  border-top: 6px solid #2c83e0;
+  position: relative;
+}
+
+/* Título del login */
 .login-box h2 {
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
   color: #333;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Inputs */
 .login-box input {
   width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  padding: 0.9rem;
   border-radius: 8px;
+  box-sizing: border-box;
+
+  border: 1.5px solid #ccc;
   font-size: 1rem;
-  transition: border 0.3s;
+  transition: 0.3s ease border-color, box-shadow;
 }
 
 .login-box input:focus {
-  border-color: #4a90e2;
+  border-color: #007bff6a;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
   outline: none;
 }
 
@@ -46,17 +82,23 @@
 .login-box button {
   width: 100%;
   padding: 0.9rem;
-  background-color: #4a90e2;
-  border: none;
+  background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
   font-size: 1rem;
+  font-weight: 600;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .login-box button:hover {
-  background-color: #357abd;
+  background: linear-gradient(135deg, #0056b3, #004080);
+  transform: translateY(-2px);
+}
+
+.login-box button:active {
+  transform: scale(0.98);
 }
 
 /* Animación de entrada */
@@ -71,10 +113,14 @@
   }
 }
 
-/* Responsivo para móvil */
+/* Responsive para pantallas pequeñas */
 @media (max-width: 480px) {
   .login-box {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .branding h1 {
+    font-size: 2rem;
   }
 
   .login-box h2 {

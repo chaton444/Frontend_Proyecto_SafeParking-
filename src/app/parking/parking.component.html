@@ -1,58 +1,64 @@
-<div class="header">
-  <h1>SafeParking</h1>
-</div>
+<header class="main-header">
+  <div class="header-left">
+    <span class="logo">
+      <i class="fas fa-wheelchair" style="margin-right: 8px;"></i> SafeParking
+    </span>
+  </div>
 
-<div class="container">
-  <h2>Lista de Autos Infraccionados</h2>
+  <div class="header-center">
+    <input type="text" class="search-input" placeholder="Buscar por placa..." [(ngModel)]="searchPlate"
+      (input)="filterCars()" />
+  </div>
 
-  <!-- Formulario para cargar imagen    <input type="file" (change)="uploadImage($event, cars)">-->
+  <div class="header-right">
+    <button class="logout-button icon" (click)="logout()" title="Cerrar sesión">
+  <i class="fas fa-sign-out-alt"></i>
+</button>
 
-<!-- Buscador de placas -->
-<div class="search-bar">
-  <input
-    type="text"
-    [(ngModel)]="searchPlate"
-    (input)="filterCars()"
-    placeholder="Buscar por placa..."
-    class="search-input"
-  />
-</div>
-
-
+  </div>
+</header>
 
 
 
-  
-<div style="text-align: center;">
-  <button class="logout-button" (click)="logout()">Cerrar sesión</button>
-</div>
+<section class="section-header">
+  <h2>AUTOS INFRACCIONADOS</h2>
+</section>
 
-
+<section class="cardview-wrapper">
   <div class="car-gallery">
     <div class="car-card" *ngFor="let car of filteredCars">
-      <!-- Imagen -->
       <img [src]="car.image" [alt]="car.plate" />
-      
-      <div class="car-details">
-        <!-- Formulario para editar el nombre del archivo -->
-        <div *ngIf="editingPlate === car.id; else displayMode">
+      <div class="car-info">
+        <ng-container *ngIf="editingPlate === car.id; else displayMode">
           <input type="text" [(ngModel)]="tempPlate" placeholder="Nuevo nombre de imagen" />
-          <div class="buttons">
-            <button (click)="updateCarPlate(car)">Guardar</button>
-            <button (click)="cancelEdit()">Cancelar</button>
+          <div class="actions">
+            <button class="btn-action confirm" title="Guardar" (click)="updateCarPlate(car)">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn-action cancel" title="Cancelar" (click)="cancelEdit()">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
-        </div>
-        
-        <!-- Modo de visualización -->
+        </ng-container>
+
+
         <ng-template #displayMode>
-          <p>{{ car.plate}}</p>
-          <div class="buttons">
-            <button (click)="downloadImage(car.image)">Descargar</button>
-            <button (click)="startEditingPlate(car)">Modificar</button>
-            <button (click)="deleteImage(car)">Eliminar</button>
+          <p>{{ car.plate }}</p>
+          <div class="actions">
+            <button class="btn-action edit" title="Modificar" (click)="startEditingPlate(car)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-action save" title="Descargar" (click)="downloadImage(car.image)">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="btn-action delete" title="Eliminar" (click)="deleteImage(car)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
           </div>
+
+
         </ng-template>
       </div>
     </div>
   </div>
-</div>
+</section>
